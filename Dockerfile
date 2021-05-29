@@ -21,6 +21,6 @@ RUN apk del .tmp-build-deps
 COPY ./src /app
 
 # [Security] Limit the scope of user who run the docker image
-#RUN adduser -D user
+RUN adduser -D user
 
-#USER user
+USER user
