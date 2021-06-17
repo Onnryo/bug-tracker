@@ -1,15 +1,22 @@
 {% extends "dashboard/layout.html" %}
 {% block body %}
     <h1>Hello, World!</h1>
-    {% for post in posts %}
+    {% for project in projects %}
         <article class="media content-section">
-            <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ post.author }}</a>
-                    <small class="text-muted">{{ post.date_posted }}</small>
+            <div class="media-body d-flex flex-row">
+                <img class="rounded-circle article-img" src="{{ project.owner.profile.image.url }}">
+                <div>
+                    <div class="article-metadata">
+                        <a class="mr-2" href="#">{{ project.owner.username }}</a>
+                        <small class="text-muted">{{ project.modified }}</small>
+                    </div>
+                    <h2><a class="article-title" href="{% url 'project-detail' project.id %}">{{ project.name }}</a></h2>
+                    <p class="article-content">
+                        {% for member in project.members.all %}
+                            {{ member.username }}, 
+                        {% endfor %}
+                    </p>
                 </div>
-                <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-                <p class="article-content">{{ post.content }}</p>
             </div>
         </article>
     {% endfor %}

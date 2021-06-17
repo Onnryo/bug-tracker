@@ -1,0 +1,20 @@
+{% extends "dashboard/layout.html" %}
+{% block body %}
+    <article class="media content-section">
+        <div class="media-body d-flex flex-row">
+            <img class="rounded-circle article-img" src="{{ project.owner.profile.image.url }}">
+            <div>
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ project.owner.username }}</a>
+                    <small class="text-muted">{{ project.modified }}</small>
+                </div>
+                <h2 class="article-title">{{ project.name }}</h2>
+                <p class="article-content">
+                    {% for member in project.members.all %}
+                        {{ member.username }}, 
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </article>
+{% endblock body %}

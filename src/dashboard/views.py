@@ -1,27 +1,13 @@
 from django.shortcuts import render
-
-posts = [
-    {
-        'author': "Trey",
-        'title': 'Post #1',
-        'content': 'First post content',
-        'date_posted': 'October 22, 2020'
-    },
-    {
-        'author': "Jacob",
-        'title': 'Post #2',
-        'content': 'Second post content',
-        'date_posted': 'January 22, 2020'
-    }
-]
+from django.views.generic import ListView
+from projects.models import Project
 
 
-def index(request):
-    ctx = {
-        'posts': posts,
-        'title': 'Dashboard'
-    }
-    return render(request, 'dashboard/index.html', ctx)
+class ProjectListView(ListView):
+    model = Project
+    template_name = 'dashboard/index.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'projects'
+    ordering = ['-modified']
 
 
 def about(request):

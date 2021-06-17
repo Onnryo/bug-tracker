@@ -46,7 +46,7 @@ body {
   }
   
   .article-content {
-    white-space: pre-line;
+    white-space: normal;
   }
   
   .article-img {
