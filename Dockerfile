@@ -10,8 +10,10 @@ WORKDIR /app
 
 # Install dependencies
 RUN apk add --update --no-cache postgresql-client
-RUN apk add --update --no-cache --virtual .tmp-build-deps gcc libc-dev linux-headers postgresql-dev
+RUN apk add --update --no-cache --virtual .tmp-build-deps gcc libc-dev linux-headers postgresql-dev python3-dev 
+RUN apk add --update --no-cache jpeg-dev zlib-dev
 COPY ./requirements.txt /app/requirements.txt
+RUN pip install --upgrade pip
 RUN pip install -r /app/requirements.txt
 
 # Remove dependencies
