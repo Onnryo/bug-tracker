@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'projects.apps.ProjectsConfig',
     'users.apps.UsersConfig',
     'dashboard.apps.DashboardConfig',
     'crispy_forms',
