@@ -18,6 +18,7 @@ def register(request):
 
 @login_required
 def profile(request):
+    username = request.user.username
     if request.method == 'POST':
         user_update_form = UserUpdateForm(request.POST, instance=request.user)
         profile_update_form = ProfileUpdateForm(
@@ -33,6 +34,7 @@ def profile(request):
         profile_update_form = ProfileUpdateForm(instance=request.user.profile)
 
     ctx = {
+        'username': username,
         'user_update_form': user_update_form,
         'profile_update_form': profile_update_form,
     }
