@@ -4,7 +4,7 @@ from django.urls import reverse
 
 
 class Project(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="owner")
     members = models.ManyToManyField(User, related_name="members")

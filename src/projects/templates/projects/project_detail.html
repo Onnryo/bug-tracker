@@ -3,10 +3,16 @@
     <article class="media content-section">
         <div class="media-body d-flex flex-row">
             <img class="rounded-circle article-img" src="{{ project.owner.profile.image.url }}">
-            <div>
+            <div class="flex-grow-1">
                 <div class="article-metadata">
                     <a class="mr-2" href="#">{{ project.owner.username }}</a>
                     <small class="text-muted">{{ project.modified }}</small>
+                    {% if project.owner == user %}
+                        <div>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'project-update' project.id %}">Update</a>
+                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'project-delete' project.id %}">Delete</a>
+                        </div>
+                    {% endif %}
                 </div>
                 <h2 class="article-title">{{ project.name }}</h2>
                 <p class="article-content">
