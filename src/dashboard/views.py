@@ -8,6 +8,7 @@ class ProjectListView(ListView):
     template_name = 'dashboard/index.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'projects'
     ordering = ['-modified']
+    paginate_by = 5
 
 
 def about(request):

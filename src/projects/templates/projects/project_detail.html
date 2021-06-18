@@ -5,7 +5,7 @@
             <img class="rounded-circle article-img" src="{{ project.owner.profile.image.url }}">
             <div class="flex-grow-1">
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ project.owner.username }}</a>
+                    <a class="mr-2" href="{% url 'user-projects' project.owner.username %}">{{ project.owner }}</a>
                     <small class="text-muted">{{ project.modified }}</small>
                     {% if project.owner == user %}
                         <div>

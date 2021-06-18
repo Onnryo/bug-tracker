@@ -29,6 +29,8 @@ services:
             - DB_USER=${DB_USER}
             - DB_PASS=${DB_PASS}
             - SECRET_KEY=${SECRET_KEY}
+            - EMAIL_USER=${EMAIL_USER}
+            - EMAIL_PASS=${EMAIL_PASS}
         depends_on: 
             - db
 volumes:

@@ -1,7 +1,19 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.models import User
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Project
+
+
+class UserProjectListView(ListView):
+    model = Project
+    template_name = 'projects/user_projects.html'
+    context_object_name = 'projects'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Project.objects.filter(owner=user).order_by('-modified')
 
 
 class ProjectDetailView(DetailView):

@@ -1,6 +1,6 @@
 {% extends "dashboard/layout.html" %}
 {% block body %}
-    <h1>Hello, World!</h1>
+    <h1 class="mb-3">Projects by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
     {% for project in projects %}
         <article class="media content-section">
             <div class="media-body d-flex flex-row">
