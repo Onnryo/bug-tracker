@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Project
+from users.models import CustomUser
 
 
 class UserProjectListView(ListView):
@@ -12,7 +12,8 @@ class UserProjectListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        user = get_object_or_404(
+            CustomUser, username=self.kwargs.get('username'))
         return Project.objects.filter(owner=user).order_by('-modified')
 
 

@@ -14,9 +14,9 @@ class RegisterView(FormView):
     success_url = reverse_lazy('login')
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
-            (UserCreationForm)(form).save()
+            form.save()
             messages.success(request, f'Account successfully created!')
             return HttpResponseRedirect(str(self.success_url))
 
