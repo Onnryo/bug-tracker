@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import ProjectListView
-from . import views
+from .views import (
+    ProjectListView,
+    about
+)
 
 urlpatterns = [
     path('', ProjectListView.as_view(), name="dashboard-home"),
-    path('about/', views.about, name="dashboard-about"),
+    path('about/', about, name="dashboard-about"),
 ]
