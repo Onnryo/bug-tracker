@@ -1,5 +1,5 @@
 {% extends "dashboard/layout.html" %}
-{% block body %}
+{% block content %}
     <h1 class="mb-3">Projects by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
     {% for project in projects %}
         <article class="media content-section">
@@ -37,4 +37,4 @@
             <a class="btn btn-outline-info btn-sm" href="?page={{ page_obj.paginator.num_pages }}">&gt;&gt;</a>
         {% endif %}
     {% endif %}
-{% endblock body %}
+{% endblock content %}

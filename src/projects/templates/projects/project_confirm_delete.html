@@ -1,5 +1,5 @@
 {% extends "dashboard/layout.html" %}
-{% block body %}
+{% block content %}
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}
@@ -13,4 +13,4 @@
             </div>
         </form>
     </div>
-{% endblock body %}
+{% endblock content %}
