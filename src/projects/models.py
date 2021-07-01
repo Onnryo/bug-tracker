@@ -8,6 +8,7 @@ class Project(models.Model):
     owner = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name="owner")
     members = models.ManyToManyField(CustomUser, related_name="members")
+    is_public = models.BooleanField()
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
