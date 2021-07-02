@@ -20,6 +20,17 @@ class UserProjectListView(ListView):
         return Project.objects.filter(owner=user).filter(is_public | is_member).order_by('-modified').distinct()
 
 
+class MyProjectListView(ListView):
+    model = Project
+    template_name = 'projects/my_projects.html'
+    context_object_name = 'projects'
+    paginate_by = 5
+
+    def get_queryset(self):
+        is_member = Q(members__pk=self.request.user.pk)
+        return Project.objects.filter(is_member).order_by('-modified').distinct()
+
+
 class ProjectDetailView(UserPassesTestMixin, DetailView):
     model = Project
     context_object_name = 'project'

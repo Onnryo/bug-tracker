@@ -1,0 +1,26 @@
+{% extends "dashboard/layout.html" %}
+{% block content %}
+    <h1 class="mb-3">My Projects:</h1>
+    {% for project in projects %}
+        <article class="media content-section">
+            <div class="media-body d-flex flex-row">
+                <img class="rounded-circle article-img" src="{{ project.owner.profile.image.url }}">
+                <div>
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url 'user-projects' project.owner.username %}">{{ project.owner }}</a>
+                        <small class="text-muted">{{ project.modified }}</small>
+                    </div>
+                    <h2><a class="article-title" href="{% url 'project-detail' project.id %}">{{ project.name }}</a></h2>
+                    <p class="article-content">
+                        {% for member in project.members.all %}
+                            {{ member.username }}, 
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </article>
+    {% endfor %}
+    {% if is_paginated %}
+        {% include "dashboard/paginated.html" %}
+    {% endif %}
+{% endblock content %}

@@ -43,7 +43,7 @@
                                         <img class="rounded-circle" style="width:30px; height:30px;" src="{{ user.profile.image.url }}">
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="{% url 'user-projects' user.username %}">My Projects</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'my-projects' %}">My Projects</a></li>
                                         <li><a class="dropdown-item" href="{% url 'profile' %}">Settings</a></li>
                                         <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                                     </ul>
