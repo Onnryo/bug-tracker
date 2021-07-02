@@ -15,7 +15,7 @@ class ProjectListView(ListView):
         print(self.request.user.pk)
         is_public = Q(is_public=True)
         is_member = Q(members__pk=self.request.user.pk)
-        return Project.objects.filter(is_public | is_member).order_by('-modified')
+        return Project.objects.filter(is_public | is_member).order_by('-modified').distinct()
         # return Project.objects.filter(owner=user).order_by('-modified')
 
 

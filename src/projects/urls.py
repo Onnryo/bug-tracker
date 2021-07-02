@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import (
     ProjectDetailView,
     ProjectCreateView,
@@ -8,6 +8,7 @@ from .views import (
 )
 
 urlpatterns = [
+    path('<int:pk>/issue/', include('issues.urls')),
     path('<int:pk>/', ProjectDetailView.as_view(), name="project-detail"),
     path('<int:pk>/update/', ProjectUpdateView.as_view(), name='project-update'),
     path('<int:pk>/delete/', ProjectDeleteView.as_view(), name='project-delete'),

@@ -1,0 +1,23 @@
+{% extends "dashboard/layout.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body d-flex flex-row">
+            <img class="rounded-circle article-img" src="{{ issue.author.profile.image.url }}">
+            <div class="flex-grow-1">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{% url 'user-projects' issue.author.username %}">{{ issue.author }}</a>
+                    <small class="text-muted">{{ issue.modified }}</small>
+                    <div>
+                        {% if issue.author == user %}
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'issue-update' issue.parent_project.id issue.id %}">Update</a>
+                        {% endif %}
+                        {% if user in issue.parent_project.members.all %}
+                            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'issue-delete' issue.parent_project.id issue.id %}">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <h2 class="article-title">{{ issue.title }}</h2>
+            </div>
+        </div>
+    </article>
+{% endblock content %}

@@ -17,13 +17,13 @@ class UserProjectListView(ListView):
             CustomUser, username=self.kwargs.get('username'))
         is_public = Q(is_public=True)
         is_member = Q(members__pk=self.request.user.pk)
-        return Project.objects.filter(owner=user).filter(is_public | is_member).order_by('-modified')
+        return Project.objects.filter(owner=user).filter(is_public | is_member).order_by('-modified').distinct()
 
 
 class ProjectDetailView(UserPassesTestMixin, DetailView):
     model = Project
-    # template_name = 'projects/project_detail.html'
     context_object_name = 'project'
+    # template_name = 'projects/project_detail.html'
 
     def test_func(self):
         project = self.get_object()
@@ -32,23 +32,35 @@ class ProjectDetailView(UserPassesTestMixin, DetailView):
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
-    # template_name = 'projects/project_form.html'
     fields = ['name', 'members', 'is_public']
+    # template_name = 'projects/project_form.html'
     # success_url = reverse_lazy('dashboard-home')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+        instance = form.save(commit=False)
+        instance.members.add(self.request.user)
+        instance.save()
+
+        return response
 
 
 class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Project
-    # template_name = 'projects/project_form.html'
     fields = ['name', 'members', 'is_public']
+    # template_name = 'projects/project_form.html'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+        instance = form.save(commit=False)
+        instance.members.add(self.request.user)
+        instance.save()
+
+        return response
 
     def test_func(self):
         project = self.get_object()
@@ -57,8 +69,8 @@ class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Project
-    # template_name = 'projects/project_confirm_delete.html'
     success_url = '/'
+    # template_name = 'projects/project_confirm_delete.html'
 
     def test_func(self):
         project = self.get_object()
