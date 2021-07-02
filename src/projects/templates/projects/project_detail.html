@@ -7,6 +7,11 @@
                 <div class="article-metadata">
                     <a class="mr-2" href="{% url 'user-projects' project.owner.username %}">{{ project.owner }}</a>
                     <small class="text-muted">{{ project.modified }}</small>
+                    {% if project.is_public or user in project.members.all %}
+                        <div>
+                            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'issue-create' project.id %}">New Issue</a>
+                        </div>
+                    {% endif %}
                     {% if project.owner == user %}
                         <div>
                             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'project-update' project.id %}">Update</a>
