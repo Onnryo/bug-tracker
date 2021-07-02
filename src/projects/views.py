@@ -47,6 +47,11 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     # template_name = 'projects/project_form.html'
     # success_url = reverse_lazy('dashboard-home')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["header"] = "New Project"
+        return context
+
     def form_valid(self, form):
         form.instance.owner = self.request.user
         response = super().form_valid(form)
@@ -62,6 +67,11 @@ class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Project
     fields = ['name', 'members', 'is_public']
     # template_name = 'projects/project_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["header"] = "Update Project"
+        return context
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
