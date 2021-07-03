@@ -32,7 +32,7 @@ class Issue(models.Model):
         if present_keys:
             return present_keys[0]+1
         else:
-            return 0
+            return 1
 
     def get_absolute_url(self):
         return reverse("issue-detail", kwargs={"pk": self.parent_project.pk, "issue_pk": self.pk})

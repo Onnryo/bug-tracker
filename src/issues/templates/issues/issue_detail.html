@@ -1,6 +1,7 @@
 {% extends "dashboard/layout.html" %}
 {% block content %}
     <article class="media content-section">
+        <h2><a href="{% url 'project-detail' issue.parent_project.id %}">{{ issue.parent_project.name }}</a></h2>
         <div class="media-body d-flex flex-row">
             <img class="rounded-circle article-img" src="{{ issue.author.profile.image.url }}">
             <div class="flex-grow-1">

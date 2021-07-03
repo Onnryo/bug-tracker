@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Project
+from issues.models import Issue
 from users.models import CustomUser
 
 
@@ -35,6 +36,12 @@ class ProjectDetailView(UserPassesTestMixin, DetailView):
     model = Project
     context_object_name = 'project'
     # template_name = 'projects/project_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["issues"] = Issue.objects.filter(
+            parent_project=self.get_object()).order_by('-modified')
+        return context
 
     def test_func(self):
         project = self.get_object()
