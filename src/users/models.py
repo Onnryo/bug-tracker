@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from PIL import Image
+import pytz
+
+ALL_TIMEZONES = sorted((item, item) for item in pytz.all_timezones)
 
 
 class CustomUser(AbstractUser):
@@ -13,6 +16,8 @@ class CustomUser(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    tz = models.CharField("Timezone", choices=ALL_TIMEZONES,
+                          max_length=64, default="('UTC', 'UTC')")
 
     def __str__(self):
         return f'{self.user.username} Profile'
