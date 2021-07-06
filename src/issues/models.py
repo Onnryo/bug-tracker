@@ -6,6 +6,7 @@ from users.models import CustomUser
 
 class Issue(models.Model):
     title = models.CharField(max_length=50, unique=True)
+    description = models.TextField(default="No Description.")
     author = models.ForeignKey(
         CustomUser, on_delete=models.SET_NULL, related_name="author", null=True)
     parent_project = models.ForeignKey(

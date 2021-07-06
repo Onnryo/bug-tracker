@@ -6,7 +6,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from projects.models import Project
 from .models import Issue
-from users.models import CustomUser
 
 
 class IssueDetailView(UserPassesTestMixin, DetailView):
@@ -23,7 +22,7 @@ class IssueDetailView(UserPassesTestMixin, DetailView):
 class IssueCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Issue
     pk_url_kwarg = 'issue_pk'
-    fields = ['title']
+    fields = ['title', 'description']
     # template_name = 'projects/project_form.html'
     # success_url = reverse_lazy('dashboard-home')
 
@@ -43,7 +42,7 @@ class IssueCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Issue
     pk_url_kwarg = 'issue_pk'
-    fields = ['title']
+    fields = ['title', 'description']
     # template_name = 'projects/project_form.html'
 
     def form_valid(self, form):

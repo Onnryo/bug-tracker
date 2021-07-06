@@ -36,8 +36,10 @@
                     <div class="border ps-3 pt-2 pe-3 btn-outline-light">
                         <h5><a href="{% url 'issue-detail' project.id issue.id %}">{{ issue.title }}</a></h5>
                         <p class="text-muted">#{{ issue.key }} created {{ issue.created | date:'g:i a n/j/y' }} by {{ issue.author }}</p>
+                        <div class="article-content">
+                            <p class="text-dark">{{ issue.description }}</p>
+                        </div>
                     </div>
-                    
                 {% endfor %}
             </div>
         </div>
