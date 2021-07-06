@@ -22,8 +22,13 @@ class Issue(models.Model):
         unique_together = ("key", "parent_project")
 
     def save(self, *args, **kwargs):
-        key = self.cal_key(self.parent_project)
+        project = self.parent_project
+        key = self.cal_key(project)
         self.key = key
+
+        project.modified = self.modified
+        project.save()
+
         super(Issue, self).save(*args, **kwargs)
 
     def cal_key(self, fk):
