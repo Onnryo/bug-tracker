@@ -14,12 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
+from django.conf.urls import url
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, URLPattern, URLResolver
+import typing
 
-urlpatterns = [
+# Appease the pylance gods
+URL = typing.Union[URLPattern, URLResolver]
+URLList = typing.List[URL]
+
+urlpatterns: URLList = [
     path('', include('dashboard.urls')),
     path('', include('users.urls')),
     path('project/', include('projects.urls')),
     path('admin/', admin.site.urls),
+    url(r'^markdownx/', include('markdownx.urls')),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,12 +1,14 @@
 from django.db import models
 from django.urls import reverse
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdownify
 from projects.models import Project
 from users.models import CustomUser
 
 
 class Issue(models.Model):
     title = models.CharField(max_length=50, unique=True)
-    description = models.TextField(default="No Description.")
+    description = MarkdownxField(default="No Description.")
     author = models.ForeignKey(
         CustomUser, on_delete=models.SET_NULL, related_name="author", null=True)
     parent_project = models.ForeignKey(
@@ -21,6 +23,12 @@ class Issue(models.Model):
 
     def Meta(self):
         unique_together = ("key", "parent_project")
+
+    def description_markdown(self):
+        return markdownify(self.description)
+
+    def description_summary(self):
+        return markdownify(self.description[:30] + "...")
 
     def save(self, *args, **kwargs):
         project = self.parent_project

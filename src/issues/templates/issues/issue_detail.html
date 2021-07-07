@@ -1,4 +1,5 @@
 {% extends "dashboard/layout.html" %}
+{% load static %}
 {% block content %}
     <article class="media content-section">
         <h2><a href="{% url 'project-detail' issue.parent_project.id %}">{{ issue.parent_project.name }}</a></h2>
@@ -19,7 +20,7 @@
                 </div>
                 <h2 class="article-title">{{ issue.title }}</h2>
                 <div class="article-content">
-                    <p>{{ issue.description }}</p>
+                    <p>{{ issue.description_markdown|safe }}</p>
                 </div>
             </div>
         </div>
